@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::view('emails/{path?}', 'app');
+Route::view('emails/{path?}', 'emails');
+// Route::view('/{path?}', 'app');
