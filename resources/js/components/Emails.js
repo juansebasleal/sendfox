@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './Header'
 import EMailsList from './EMailsList'
-// import NewEMail from './NewEMail'
-// import SingleEMail from './SingleEMail'
+import NewEMail from './NewEMail'
+import SingleEMail from './SingleEMail'
 
 class Emails extends Component {
   render () {
@@ -13,7 +13,9 @@ class Emails extends Component {
         <div>
           <Header />
           <Switch>
-            <Route path='/:id' component={EMailsList} />
+            <Route exact path='/emails' component={EMailsList} />
+            <Route exact path='/emails/create' component={NewEMail} />
+            <Route path='/emails/view/:id' component={SingleEMail} />
           </Switch>
         </div>
       </BrowserRouter>

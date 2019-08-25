@@ -23,7 +23,7 @@ class EmailsController extends Controller
         return $emails->toJson();
     }
 
-    public function new()
+    public function create()
     {
 
     }
@@ -33,7 +33,7 @@ class EmailsController extends Controller
 
     }
 
-    public function show()
+    public function view()
     {
 
     }
