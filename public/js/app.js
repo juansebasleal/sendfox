@@ -91653,6 +91653,11 @@ function (_React$Component) {
       _this.onChange(draft_js__WEBPACK_IMPORTED_MODULE_2__["RichUtils"].toggleInlineStyle(_this.state.editorState, 'ITALIC'));
     };
 
+    _this.onBackButtonClick = function () {
+      event.preventDefault();
+      window.location.href = '/emails_list';
+    };
+
     _this.handleFieldChange = function (event) {
       _this.setState(_defineProperty({}, event.target.name, event.target.value));
     };
@@ -91698,6 +91703,7 @@ function (_React$Component) {
       subject: '',
       title: 'Create New Email',
       submitButonText: 'Create',
+      backButonText: 'Back',
       emailId: null,
       errors: []
     };
@@ -91779,7 +91785,10 @@ function (_React$Component) {
         onChange: this.onChange
       }))), this.renderErrorFor('body')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary"
-      }, this.state.submitButonText)))))));
+      }, this.state.submitButonText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-secondary",
+        onClick: this.onBackButtonClick
+      }, this.state.backButonText)))))));
     }
   }]);
 

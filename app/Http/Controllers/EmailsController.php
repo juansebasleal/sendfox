@@ -3,21 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Email;
+use App\Paginator;
 use Illuminate\Http\Request;
 
 class EmailsController extends Controller
 {
+
     // public function index()
     // {
     //     return view('emails');
     // }
-    public function index()
-    {
-        $emails = Email::orderBy('created_at', 'desc')->get();
 
-        // return view('emails_list');
-        // return view('emails_list', ['emails', $emails]);
-        return view('emails_list')->withEmails($emails);
+    public function __construct()
+    {
+        // $this->paginator = new Paginator(App\Email);
+        $this->paginator = new Paginator(Email::count());
+    }
+
+    public function index(Request $request)
+    {
+
+        $pageId = $request->page_id ?: 1;
+
+        $emails = Email::orderBy('created_at', 'desc')
+            ->skip($this->paginator->getSkipValue($pageId))
+            ->take($this->paginator->getPageSize())
+            ->get();
+
+
+        return view('emails_list')
+        ->withEmails($emails)
+        ->withPaginationValues([
+            'totalSize' => $this->paginator->getPagesNumber(),
+        ]);
     }
 
     public function list()

@@ -12,6 +12,7 @@ class MyEditor extends React.Component {
       subject: '',
       title: 'Create New Email',
       submitButonText: 'Create',
+      backButonText: 'Back',
       emailId: null,
       errors: []
     }
@@ -86,6 +87,10 @@ class MyEditor extends React.Component {
   }
 
 
+  onBackButtonClick = () => {
+    event.preventDefault();
+    window.location.href = '/emails_list'; 
+  }
 
 
   handleFieldChange = (event) => {
@@ -177,6 +182,9 @@ class MyEditor extends React.Component {
                     {this.renderErrorFor('body')}
                   </div>
                   <button className='btn btn-primary'>{this.state.submitButonText}</button>
+                  <button className='btn btn-secondary' onClick={this.onBackButtonClick}>
+                    {this.state.backButonText}
+                  </button>
                 </form>
               </div>
             </div>

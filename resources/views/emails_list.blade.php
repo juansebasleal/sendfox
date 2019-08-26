@@ -14,18 +14,17 @@
     </head>
     <body>
 
-
-
-
-
         <div class='container py-4'>
         <div class='row justify-content-center'>
           <div class='col-md-8'>
             <div class='card'>
-              <div class='card-header'>All e-mails</div>
+              <div class='card-header'>All e-mails (from newest to oldest)</div>
               <div class='card-body'>
 
                 <!-- link create new email -->
+                <a class='btn btn-primary btn-sm mb-3' href="{{ url('/emails/create') }}">
+                  Create new EMail
+                </a>
 
                 <ul class='list-group list-group-flush'>
                     @foreach ($emails as $email)
@@ -35,6 +34,13 @@
                         </span>
                     @endforeach
                 </ul>
+              </div>
+              <div class='card-footer'>
+
+                @for ($i = 1; $i <= $paginationValues['totalSize']; $i++)
+                  <a href="{{ url('/emails_list?page_id=' . $i) }}">{{ $i }}</a>
+                @endfor
+
               </div>
             </div>
           </div>
