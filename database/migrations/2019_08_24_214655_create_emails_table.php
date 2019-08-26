@@ -17,7 +17,7 @@ class CreateEmailsTable extends Migration
             $table->bigIncrements('id');
             $table->text('subject');
             $table->longText('body');
-            $table->unsignedInteger('user_id')->unsigned();
+            $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

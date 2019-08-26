@@ -1,16 +1,40 @@
 import React from 'react'
 import axios from 'axios'
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 
 class MyEditor extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       editorState: EditorState.createEmpty(),
 
       subject: '',
-      body: '',
+      // body: '',
       errors: []
+    }
+  
+    this.emailId = this.props.match.params.id;
+    this.isEditing = (this.emailId !== undefined && this.emailId !== null);
+
+    if (this.isEditing) {
+      axios.get(`/api/emails/view/${this.emailId}`).then(response => {
+
+        this.setState({
+          // email: response.data,
+          // editorState: EditorState.createWithContent(convertFromRaw(response.data.body)),
+          // editorState: EditorState.createEmpty(),
+          subject: response.data.subject,
+          // errors: []
+        })
+
+      });
+    } else {
+      // this.state = {
+      //   editorState: EditorState.createEmpty(),
+      //   subject: '',
+      //   // errors: []
+      // }
     }
 
 
@@ -19,6 +43,22 @@ class MyEditor extends React.Component {
     this.hasErrorFor = this.hasErrorFor.bind(this)
     this.renderErrorFor = this.renderErrorFor.bind(this)
   }
+
+//   componentDidMount () {
+//     const emailId = this.props.match.params.id;
+
+//     this.isEditing = (this.emailId !== undefined && this.emailId !== null);
+// alert(this.isEditing);
+// alert(this.emailId);
+//     if (this.isEditing) {
+//       axios.get(`/api/emails/view/${emailId}`).then(response => {
+// alert(response);
+//         this.setState({
+//           email: response.data
+//         })
+//       });
+//     }
+//   }
 
   styles = {
     editor: {

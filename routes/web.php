@@ -23,4 +23,5 @@ Route::get('/emails_list', 'EmailsController@index');
 
 // Route::view('emails/{path?}', 'app');
 Route::view('emails/{path?}', 'emails');
+Route::view('emails/{path?}/{id?}', 'emails');
 // Route::view('/{path?}', 'app');

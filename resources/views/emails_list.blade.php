@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Emails Management (only view)</title>
+        <title>Emails Management</title>
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -30,7 +30,8 @@
                 <ul class='list-group list-group-flush'>
                     @foreach ($emails as $email)
                         <span class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
-                        {{ $email->subject }}
+                            <a href="{{ url('/emails/view/' . $email->id) }}">{{ $email->id }}</a>
+                            {{ str_limit($email->subject, $limit = 80, $end = ' (...)') }}
                         </span>
                     @endforeach
                 </ul>

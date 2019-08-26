@@ -33,6 +33,8 @@ class EmailsController extends Controller
             'body' => 'required',
         ]);
 
+        // updateOrCreate
+
         $email = Email::create([
             'subject' => $validatedData['subject'],
             'body' => $validatedData['body'],
@@ -47,8 +49,12 @@ class EmailsController extends Controller
 
     }
 
-    public function view()
+    public function view(Request $request)
     {
-
+        $email = Email::where('id', $request->id)
+            ->orderBy('created_at', 'desc')->first();
+        
+        return $email->toJson();
     }
+
 }
