@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/emails') }}">Emails Management</a>
+                        <a href="{{ url('/emails_list') }}">Emails Management</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -83,15 +83,12 @@
                 <div class="title m-b-md">
                     SendFox
                 </div>
+                <h2>By Sebastian Leal</h2>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://ca.linkedin.com/in/jslealdi/en">LinkedIn</a>
+                    <a href="https://github.com/juansebasleal">GitHub</a>
+                    <a href="https://draftjs.org/">Draft.js</a>
                 </div>
             </div>
         </div>

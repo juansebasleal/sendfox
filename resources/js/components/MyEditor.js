@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+// import { RouterModule, Routes } from '@angular/router';
 
 class MyEditor extends React.Component {
   constructor(props) {
@@ -9,6 +10,9 @@ class MyEditor extends React.Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       subject: '',
+      title: 'Create New Email',
+      submitButonText: 'Create',
+      emailId: null,
       errors: []
     }
   
@@ -24,6 +28,13 @@ class MyEditor extends React.Component {
     this.isEditing = (this.emailId !== undefined && this.emailId !== null);
 
     if (this.isEditing) {
+
+      this.setState({
+        title: 'Edit Email',
+        submitButonText: 'Update',
+        emailId: this.emailId
+      })
+
       axios.get(`/api/emails/view/${this.emailId}`).then(response => {
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(response.data.body))),
@@ -91,8 +102,8 @@ class MyEditor extends React.Component {
 
     const editorContentState = this.state.editorState.getCurrentContent();
 
-
     const email = {
+      emailId: this.state.emailId,
       subject: this.state.subject,
       body: JSON.stringify(convertToRaw(editorContentState))
     }
@@ -100,7 +111,10 @@ class MyEditor extends React.Component {
     axios.post('/api/emails/create', email)
       .then(response => {
         // redirect to the homepage
-        history.push('/emails')
+        // history.push('/emails_list');
+        // router.navigate(['/emails_list']);
+        // $window.location.href = '/emails_list';
+        window.location.href = '/emails_list'; 
       })
       .catch(error => {
         this.setState({
@@ -129,7 +143,7 @@ class MyEditor extends React.Component {
         <div className='row justify-content-center'>
           <div className='col-md-6'>
             <div className='card'>
-              <div className='card-header'>Create new Email</div>
+              <div className='card-header'>{this.state.title}</div>
               <div className='card-body'>
                 <form onSubmit={this.handleCreateNewEMail}>
                   <div className='form-group'>
@@ -162,7 +176,7 @@ class MyEditor extends React.Component {
 
                     {this.renderErrorFor('body')}
                   </div>
-                  <button className='btn btn-primary'>Create</button>
+                  <button className='btn btn-primary'>{this.state.submitButonText}</button>
                 </form>
               </div>
             </div>

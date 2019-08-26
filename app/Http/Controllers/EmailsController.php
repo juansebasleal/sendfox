@@ -35,11 +35,27 @@ class EmailsController extends Controller
 
         // updateOrCreate
 
-        $email = Email::create([
-            'subject' => $validatedData['subject'],
-            'body' => $validatedData['body'],
-            'user_id' => '1',
-        ]);
+        // $email = Email::create([
+        //     'subject' => $validatedData['subject'],
+        //     'body' => $validatedData['body'],
+        //     'user_id' => '1',
+        // ]);
+        // $email = Email::firstOrCreate([
+        //     'id' => $request->emailId,
+        //     'subject' => $validatedData['subject'],
+        //     'body' => $validatedData['body'],
+        //     'user_id' => '1',
+        // ]);
+        $user = Email::updateOrCreate(
+            [
+                'id' => $request->emailId,
+            ],
+            [
+                'subject' => $validatedData['subject'],
+                'body' => $validatedData['body'],
+                'user_id' => '1'
+            ]
+        );
 
         return response()->json('Email created!');
     }

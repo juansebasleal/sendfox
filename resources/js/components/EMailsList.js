@@ -11,10 +11,7 @@ class EMailsList extends Component {
   }
 
   componentDidMount () {
-// alert("componentDidMount");
     axios.get('/api/emails').then(response => {
-    // axios.get('/api/').then(response => {
-// alert("RESPONSE: " +  response);
       this.setState({
         emails: response.data
       })
@@ -38,13 +35,10 @@ class EMailsList extends Component {
                   {emails.map(email => (
                     <Link
                       className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
-                      to={`/emails/${email.id}`}
+                      to={`/emails/view/${email.id}`}
                       key={email.id}
                     >
                       {email.subject}
-                      <span className='badge badge-primary badge-pill'>
-                        {email.body}
-                      </span>
                     </Link>
                   ))}
                 </ul>

@@ -91406,10 +91406,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      // alert("componentDidMount");
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/emails').then(function (response) {
-        // axios.get('/api/').then(response => {
-        // alert("RESPONSE: " +  response);
         _this2.setState({
           emails: response.data
         });
@@ -91439,11 +91436,9 @@ function (_Component) {
       }, emails.map(function (email) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
-          to: "/emails/".concat(email.id),
+          to: "/emails/view/".concat(email.id),
           key: email.id
-        }, email.subject, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-          className: "badge badge-primary badge-pill"
-        }, email.body));
+        }, email.subject);
       })))))));
     }
   }]);
@@ -91600,7 +91595,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // import { RouterModule, Routes } from '@angular/router';
 
 var MyEditor =
 /*#__PURE__*/
@@ -91669,12 +91664,16 @@ function (_React$Component) {
       var editorContentState = _this.state.editorState.getCurrentContent();
 
       var email = {
+        emailId: _this.state.emailId,
         subject: _this.state.subject,
         body: JSON.stringify(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertToRaw"])(editorContentState))
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/emails/create', email).then(function (response) {
         // redirect to the homepage
-        history.push('/emails');
+        // history.push('/emails_list');
+        // router.navigate(['/emails_list']);
+        // $window.location.href = '/emails_list';
+        window.location.href = '/emails_list';
       })["catch"](function (error) {
         _this.setState({
           errors: error.response.data.errors
@@ -91697,6 +91696,9 @@ function (_React$Component) {
     _this.state = {
       editorState: draft_js__WEBPACK_IMPORTED_MODULE_2__["EditorState"].createEmpty(),
       subject: '',
+      title: 'Create New Email',
+      submitButonText: 'Create',
+      emailId: null,
       errors: []
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
@@ -91715,6 +91717,11 @@ function (_React$Component) {
       this.isEditing = this.emailId !== undefined && this.emailId !== null;
 
       if (this.isEditing) {
+        this.setState({
+          title: 'Edit Email',
+          submitButonText: 'Update',
+          emailId: this.emailId
+        });
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/emails/view/".concat(this.emailId)).then(function (response) {
           _this2.setState({
             editorState: draft_js__WEBPACK_IMPORTED_MODULE_2__["EditorState"].createWithContent(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertFromRaw"])(JSON.parse(response.data.body))),
@@ -91736,7 +91743,7 @@ function (_React$Component) {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, "Create new Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleCreateNewEMail
@@ -91772,7 +91779,7 @@ function (_React$Component) {
         onChange: this.onChange
       }))), this.renderErrorFor('body')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary"
-      }, "Create")))))));
+      }, this.state.submitButonText)))))));
     }
   }]);
 
