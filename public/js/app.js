@@ -91670,11 +91670,9 @@ function (_React$Component) {
 
       var email = {
         subject: _this.state.subject,
-        // body: this.state.body
         body: JSON.stringify(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertToRaw"])(editorContentState))
       };
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/emails/create', email) // axios.post('/api/', emails)
-      .then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/emails/create', email).then(function (response) {
         // redirect to the homepage
         history.push('/emails');
       })["catch"](function (error) {
@@ -91699,51 +91697,33 @@ function (_React$Component) {
     _this.state = {
       editorState: draft_js__WEBPACK_IMPORTED_MODULE_2__["EditorState"].createEmpty(),
       subject: '',
-      // body: '',
       errors: []
     };
-    _this.emailId = _this.props.match.params.id;
-    _this.isEditing = _this.emailId !== undefined && _this.emailId !== null;
-
-    if (_this.isEditing) {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/emails/view/".concat(_this.emailId)).then(function (response) {
-        _this.setState({
-          // email: response.data,
-          // editorState: EditorState.createWithContent(convertFromRaw(response.data.body)),
-          // editorState: EditorState.createEmpty(),
-          subject: response.data.subject // errors: []
-
-        });
-      });
-    } else {// this.state = {
-      //   editorState: EditorState.createEmpty(),
-      //   subject: '',
-      //   // errors: []
-      // }
-    }
-
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
     _this.handleCreateNewEMail = _this.handleCreateNewEMail.bind(_assertThisInitialized(_this));
     _this.hasErrorFor = _this.hasErrorFor.bind(_assertThisInitialized(_this));
     _this.renderErrorFor = _this.renderErrorFor.bind(_assertThisInitialized(_this));
     return _this;
-  } //   componentDidMount () {
-  //     const emailId = this.props.match.params.id;
-  //     this.isEditing = (this.emailId !== undefined && this.emailId !== null);
-  // alert(this.isEditing);
-  // alert(this.emailId);
-  //     if (this.isEditing) {
-  //       axios.get(`/api/emails/view/${emailId}`).then(response => {
-  // alert(response);
-  //         this.setState({
-  //           email: response.data
-  //         })
-  //       });
-  //     }
-  //   }
-
+  }
 
   _createClass(MyEditor, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.emailId = this.props.match.params.id;
+      this.isEditing = this.emailId !== undefined && this.emailId !== null;
+
+      if (this.isEditing) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/emails/view/".concat(this.emailId)).then(function (response) {
+          _this2.setState({
+            editorState: draft_js__WEBPACK_IMPORTED_MODULE_2__["EditorState"].createWithContent(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertFromRaw"])(JSON.parse(response.data.body))),
+            subject: response.data.subject
+          });
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -8,57 +8,32 @@ class MyEditor extends React.Component {
 
     this.state = {
       editorState: EditorState.createEmpty(),
-
       subject: '',
-      // body: '',
       errors: []
     }
   
-    this.emailId = this.props.match.params.id;
-    this.isEditing = (this.emailId !== undefined && this.emailId !== null);
-
-    if (this.isEditing) {
-      axios.get(`/api/emails/view/${this.emailId}`).then(response => {
-
-        this.setState({
-          // email: response.data,
-          // editorState: EditorState.createWithContent(convertFromRaw(response.data.body)),
-          // editorState: EditorState.createEmpty(),
-          subject: response.data.subject,
-          // errors: []
-        })
-
-      });
-    } else {
-      // this.state = {
-      //   editorState: EditorState.createEmpty(),
-      //   subject: '',
-      //   // errors: []
-      // }
-    }
-
-
     this.handleFieldChange = this.handleFieldChange.bind(this)
     this.handleCreateNewEMail = this.handleCreateNewEMail.bind(this)
     this.hasErrorFor = this.hasErrorFor.bind(this)
     this.renderErrorFor = this.renderErrorFor.bind(this)
   }
 
-//   componentDidMount () {
-//     const emailId = this.props.match.params.id;
+  componentDidMount () {
+  
+    this.emailId = this.props.match.params.id;
+    this.isEditing = (this.emailId !== undefined && this.emailId !== null);
 
-//     this.isEditing = (this.emailId !== undefined && this.emailId !== null);
-// alert(this.isEditing);
-// alert(this.emailId);
-//     if (this.isEditing) {
-//       axios.get(`/api/emails/view/${emailId}`).then(response => {
-// alert(response);
-//         this.setState({
-//           email: response.data
-//         })
-//       });
-//     }
-//   }
+    if (this.isEditing) {
+      axios.get(`/api/emails/view/${this.emailId}`).then(response => {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(response.data.body))),
+          subject: response.data.subject,
+        })
+
+      });
+    }
+
+  }
 
   styles = {
     editor: {
@@ -119,13 +94,10 @@ class MyEditor extends React.Component {
 
     const email = {
       subject: this.state.subject,
-      // body: this.state.body
       body: JSON.stringify(convertToRaw(editorContentState))
-
     }
 
     axios.post('/api/emails/create', email)
-    // axios.post('/api/', emails)
       .then(response => {
         // redirect to the homepage
         history.push('/emails')
