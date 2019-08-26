@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/emails_list', 'EmailsController@index');
+
 // Route::view('emails/{path?}', 'app');
 Route::view('emails/{path?}', 'emails');
 // Route::view('/{path?}', 'app');

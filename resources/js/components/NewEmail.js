@@ -31,7 +31,7 @@ class NewEMail extends Component {
       description: this.state.description
     }
 
-    axios.post('/api/emails', emails)
+    axios.post('/api/emails', email)
     // axios.post('/api/', emails)
       .then(response => {
         // redirect to the homepage

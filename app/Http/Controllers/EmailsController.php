@@ -14,7 +14,10 @@ class EmailsController extends Controller
     public function index()
     {
         $emails = Email::orderBy('created_at', 'desc')->get();
-        return $emails->toJson();
+
+        // return view('emails_list');
+        // return view('emails_list', ['emails', $emails]);
+        return view('emails_list')->withEmails($emails);
     }
 
     public function list()
@@ -23,9 +26,20 @@ class EmailsController extends Controller
         return $emails->toJson();
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $validatedData = $request->validate([
+            'subject' => 'required',
+            'body' => 'required',
+        ]);
 
+        $email = Email::create([
+            'subject' => $validatedData['subject'],
+            'body' => $validatedData['body'],
+            'user_id' => '1',
+        ]);
+
+        return response()->json('Email created!');
     }
 
     public function save()
