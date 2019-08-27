@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class EmailsController extends Controller
 {
-
-    // public function index()
-    // {
-    //     return view('emails');
-    // }
-
     public function __construct()
     {
         // $this->paginator = new Paginator(App\Email);
@@ -48,39 +42,22 @@ class EmailsController extends Controller
     {
         $validatedData = $request->validate([
             'subject' => 'required',
-            'body' => 'required',
+            // 'body' => 'required',
         ]);
 
-        // updateOrCreate
-
-        // $email = Email::create([
-        //     'subject' => $validatedData['subject'],
-        //     'body' => $validatedData['body'],
-        //     'user_id' => '1',
-        // ]);
-        // $email = Email::firstOrCreate([
-        //     'id' => $request->emailId,
-        //     'subject' => $validatedData['subject'],
-        //     'body' => $validatedData['body'],
-        //     'user_id' => '1',
-        // ]);
         $user = Email::updateOrCreate(
             [
                 'id' => $request->emailId,
             ],
             [
                 'subject' => $validatedData['subject'],
-                'body' => $validatedData['body'],
+                // 'body' => $validatedData['body'],
+                'body' => $request->body,
                 'user_id' => '1'
             ]
         );
 
         return response()->json('Email created!');
-    }
-
-    public function save()
-    {
-
     }
 
     public function view(Request $request)

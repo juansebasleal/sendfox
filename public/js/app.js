@@ -91633,20 +91633,28 @@ function (_React$Component) {
 
     _this.handleCreateNewEMail = function (event) {
       event.preventDefault();
-      var history = _this.props.history;
+      var history = _this.props.history; // const editorContent = this.state.editorState.getCurrentContent().hasText() ?
+      //   JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())) :
+      //   "";
 
-      var editorContentState = _this.state.editorState.getCurrentContent();
+      var editorContent = JSON.stringify(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertToRaw"])(_this.state.editorState.getCurrentContent()));
+
+      var editorHasText = _this.state.editorState.getCurrentContent().hasText();
+
+      if (!editorHasText) {
+        alert("Email body es mandatory");
+        return false;
+      }
 
       var email = {
         emailId: _this.state.emailId,
         subject: _this.state.subject,
-        body: JSON.stringify(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertToRaw"])(editorContentState))
+        body: editorContent // ,
+        // editorHasText: editorHasText
+
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/emails/create', email).then(function (response) {
-        // redirect to the homepage
-        // history.push('/emails_list');
-        // router.navigate(['/emails_list']);
-        // $window.location.href = '/emails_list';
+        // redirect to the emails listing main page
         window.location.href = '/emails_list';
       })["catch"](function (error) {
         _this.setState({

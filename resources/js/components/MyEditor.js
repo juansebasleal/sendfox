@@ -16,7 +16,7 @@ class MyEditor extends React.Component {
       emailId: null,
       errors: []
     }
-  
+
     this.handleFieldChange = this.handleFieldChange.bind(this)
     this.handleCreateNewEMail = this.handleCreateNewEMail.bind(this)
     this.hasErrorFor = this.hasErrorFor.bind(this)
@@ -104,21 +104,29 @@ class MyEditor extends React.Component {
 
     const { history } = this.props
 
+    // const editorContent = this.state.editorState.getCurrentContent().hasText() ?
+    //   JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())) :
+    //   "";
+    const editorContent = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
 
-    const editorContentState = this.state.editorState.getCurrentContent();
+    const editorHasText = this.state.editorState.getCurrentContent().hasText();
+
+    if (!editorHasText) {
+      alert("Email body es mandatory");
+      return false;
+    }
 
     const email = {
       emailId: this.state.emailId,
       subject: this.state.subject,
-      body: JSON.stringify(convertToRaw(editorContentState))
+      body: editorContent
+      // ,
+      // editorHasText: editorHasText
     }
 
     axios.post('/api/emails/create', email)
       .then(response => {
-        // redirect to the homepage
-        // history.push('/emails_list');
-        // router.navigate(['/emails_list']);
-        // $window.location.href = '/emails_list';
+        // redirect to the emails listing main page
         window.location.href = '/emails_list'; 
       })
       .catch(error => {
