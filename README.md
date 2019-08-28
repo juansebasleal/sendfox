@@ -21,13 +21,12 @@ Make sure it runs MySQL (5.7)
 git clone https://github.com/juansebasleal/sendfox.git
 
 5. Configure it as sendfoxproblem.com  
-Modify Apache:  
 Append  
 127.0.0.1 sendfoxproblem.com  
 at the bottom of this file: C:\Windows\System32\drivers\etc\hosts
 
-6. Add vitualhost in C:\wamp64\bin\apache\apache2.4.39\conf\extra\httpd-vhosts.conf  
-<VirtualHost *:80>  
+1. Add vitualhost in C:\wamp64\bin\apache\apache2.4.39\conf\extra\httpd-vhosts.conf  
+```<VirtualHost *:80>  
   ServerName localhost  
   ServerAlias localhost  
   DocumentRoot "${INSTALL_DIR}/www/SendFox/public"  
@@ -37,6 +36,7 @@ at the bottom of this file: C:\Windows\System32\drivers\etc\hosts
     Require local  
   </Directory>  
 </VirtualHost>  
+```
 
 7. Copy .env.example to .env and  edit this section as follows:  
 DB_CONNECTION=mysql  
