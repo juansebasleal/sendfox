@@ -17,11 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Basic controllers
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/emails_list', 'EmailsController@index');
 
-// Route::view('emails/{path?}', 'app');
-Route::view('emails/{path?}', 'emails');
-Route::view('emails/{path?}/{id?}', 'emails');
-// Route::view('/{path?}', 'app');
+// For Email Management react component
+Route::get('emails/{path?}', 'EmailsController@management');
+Route::get('emails/{path?}/{id?}', 'EmailsController@management');

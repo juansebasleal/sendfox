@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
-// import { RouterModule, Routes } from '@angular/router';
 
 class MyEditor extends React.Component {
   constructor(props) {
@@ -86,7 +85,6 @@ class MyEditor extends React.Component {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
   }
 
-
   onBackButtonClick = () => {
     event.preventDefault();
     window.location.href = '/emails_list'; 
@@ -99,41 +97,39 @@ class MyEditor extends React.Component {
     })
   }
 
+  /**
+   * When hitting Create or Edit email
+   */
   handleCreateNewEMail = (event) => {
     event.preventDefault()
 
     const { history } = this.props
 
-    // const editorContent = this.state.editorState.getCurrentContent().hasText() ?
-    //   JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())) :
-    //   "";
     const editorContent = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
-
     const editorHasText = this.state.editorState.getCurrentContent().hasText();
 
+    // Prevent persisting email if the body is empty
     if (!editorHasText) {
       alert("Email body es mandatory");
       return false;
     }
 
+    // Prepare variable to be sent to the service
     const email = {
       emailId: this.state.emailId,
       subject: this.state.subject,
-      body: editorContent
-      // ,
-      // editorHasText: editorHasText
+      body: editorContent,
+      userId: UserId
     }
 
-    axios.post('/api/emails/create', email)
-      .then(response => {
+    axios.post('/api/emails/create', email).then(response => {
         // redirect to the emails listing main page
         window.location.href = '/emails_list'; 
-      })
-      .catch(error => {
+    }).catch(error => {
         this.setState({
           errors: error.response.data.errors
         })
-      })
+    })
   }
 
   hasErrorFor = (field) => {

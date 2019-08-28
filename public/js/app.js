@@ -91295,11 +91295,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-// require('./components/Example');
-// require('./components/App');
 
 
-__webpack_require__(/*! ./components/Emails */ "./resources/js/components/Emails.js");
+if (AppModule === "EMAIL_MANAGEMENT") {
+  __webpack_require__(/*! ./components/Emails */ "./resources/js/components/Emails.js");
+}
 
 /***/ }),
 
@@ -91486,10 +91486,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import Header from './Header'
 
 
- // import SingleEMail from './SingleEMail'
+
 
 var Emails =
 /*#__PURE__*/
@@ -91564,7 +91563,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import { RouterModule, Routes } from '@angular/router';
+
 
 var MyEditor =
 /*#__PURE__*/
@@ -91633,25 +91632,23 @@ function (_React$Component) {
 
     _this.handleCreateNewEMail = function (event) {
       event.preventDefault();
-      var history = _this.props.history; // const editorContent = this.state.editorState.getCurrentContent().hasText() ?
-      //   JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())) :
-      //   "";
-
+      var history = _this.props.history;
       var editorContent = JSON.stringify(Object(draft_js__WEBPACK_IMPORTED_MODULE_2__["convertToRaw"])(_this.state.editorState.getCurrentContent()));
 
-      var editorHasText = _this.state.editorState.getCurrentContent().hasText();
+      var editorHasText = _this.state.editorState.getCurrentContent().hasText(); // Prevent persisting email if the body is empty
+
 
       if (!editorHasText) {
         alert("Email body es mandatory");
         return false;
-      }
+      } // Prepare variable to be sent to the service
+
 
       var email = {
         emailId: _this.state.emailId,
         subject: _this.state.subject,
-        body: editorContent // ,
-        // editorHasText: editorHasText
-
+        body: editorContent,
+        userId: UserId
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/emails/create', email).then(function (response) {
         // redirect to the emails listing main page

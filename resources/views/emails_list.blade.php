@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('jsapp')
+<script>
+      let AppModule="EMAIL_LIST"
+</script>
+<script src="{{ asset('js/app.js') }}" defer></script>
+@endsection
+
 @section('content')
 <div class='container py-4'>
   <div class='row justify-content-center'>

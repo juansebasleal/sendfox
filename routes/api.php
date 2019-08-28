@@ -17,16 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('emails', 'EmailsController@list');
-// Route::get('emails/list', 'EmailsController@list');
-// Route::get('emails/create', 'EmailsController@new');
-// Route::post('emails/create', 'EmailsController@save');
-// Route::get('emails/view/{id}', 'EmailsController@show');
 
 Route::get('emails', 'EmailsController@list');
-// Route::get('emails/create', 'EmailsController@create');
 Route::post('emails/create', 'EmailsController@create');
 Route::get('emails/view/{id}', 'EmailsController@view');
-
-// Route::post('emails', 'EmailsController@save');
-// Route::get('emails/{id}', 'EmailsController@show');

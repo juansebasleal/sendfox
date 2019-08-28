@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-// import Header from './Header'
 import EMailsList from './EMailsList'
 import MyEditor from './MyEditor'
-// import SingleEMail from './SingleEMail'
 
 class Emails extends Component {
   render () {

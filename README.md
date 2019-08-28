@@ -3,7 +3,7 @@
 SendFox Problem - By Sebastian Leal, 2019
 
 This README is intender for Windows 7 (64 bits) Users.
-For other opertive systems, please try finding its propeper installers/packages.
+For other opertive systems, please try finding its proper installers/packages.
 
 ***************************************************************
 Installing tools
@@ -11,7 +11,7 @@ Installing tools
 1. You can independetly install Apache, PHP .... ; or you can install a package/environment that contains all of them.
 I recomend using WAMP server: http://www.wampserver.com/en/
 Choose PHP 7.3
-Make sure it runs  (5.7)
+Make sure it runs MySQL (5.7)
 
 2. In MySQL, create a database called "sendfox" with collation = utf8mb4_general_ci
 
@@ -73,24 +73,17 @@ https://reactrocket.com/post/draft-js-persisting-content/
 https://medium.com/@siobhanpmahoney/building-a-rich-text-editor-with-draft-js-react-redux-and-rails-ef8d2e2897bf
 
 
-
+USEFUL COMMANDS	
+npm run dev & php artisan serve
+php artisan view:clear
+php artisan cache:clear
 
 
 FUTURE WORK, this that can be enhanced:
+- Add diagram(s) about its architecture
 - Fix issue with migration and FK: the migration does not create an actual foreign key for emails
-- Improve some code, for example migrating styles to CSS stylesheet
-- enhance subject (js error) and email body (alert) validation
-- Do automated tests
-- Add some comments in the code
-
-
-
-
-
-
-
-
-
-
-ojo!!!!
-user_id is hardcoded!!!!
+- Paginator: support changing page size, persist current page when navigating. This might be achieve throug including a plugin.
+- enhance subject (js error) and email body (alert) validations
+- Do automated tests; try to test all posible scenarios: not logged users, sending inccorect vales to the API
+- rename create() to something like upsert() --  controller and view
+- Enhance REST API services security, maybe using JWT
