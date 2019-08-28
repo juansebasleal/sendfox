@@ -81,7 +81,6 @@ php artisan cache:clear
 
 FUTURE WORK, this that can be enhanced:  
 - Add diagram(s) about its architecture  
-- Fix issue with migration and FK: the migration does not create an actual foreign key for emails  
 - Paginator: support changing page size, persist current page when navigating. This might be achieve throug including a plugin.  
 - enhance subject (js error) and email body (alert) validations  
 - Do automated tests; try to test all posible scenarios: not logged users, sending inccorect vales to the API  
