@@ -17,7 +17,7 @@
 
           <!-- link create new email -->
           <a class='btn btn-primary btn-sm mb-3' href="{{ url('/emails/create') }}">
-            Create new EMail
+            Create new Email
           </a>
 
           <ul class='list-group list-group-flush'>
